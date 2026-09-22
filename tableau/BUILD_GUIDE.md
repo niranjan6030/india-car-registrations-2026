@@ -7,6 +7,17 @@ Second file for the data-quality story: `data/clean/tableau_4w_segments.csv`.
 
 ---
 
+## 0. The generated workbook
+
+`India_Car_Registrations_2026.twbx` is built by `make_workbook.py` and already contains
+the sheets and dashboards. Tableau Public shows "workbooks must use extracts" when it
+opens: click OK, then **Data Source tab > Create Extract**, and it is ready to publish.
+Two finishing touches are left to the UI, because Tableau's file format rejects them in a
+hand-written workbook: sorting the bar charts (click the sort icon on any axis) and
+setting the powertrain colours (green #22C55E for EV, blue #3B82F6 for the rest).
+
+The steps below build the same thing by hand, if you would rather do it yourself.
+
 ## 1. Connect
 
 1. Open Tableau Public → **Connect → Text file** → choose `tableau_cars_flat.csv`.

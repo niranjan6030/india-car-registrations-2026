@@ -66,7 +66,11 @@ Full step-by-step log: [`reports/cleaning_log.md`](reports/cleaning_log.md)
 
 ## Tableau workbook
 
-10 worksheets and 2 dashboards ("Overview", "The EV Shift"), built on a `.hyper` extract of 5,686 rows.
+10 worksheets and 2 dashboards ("Overview", "The EV Shift") over 5,686 rows of cleaned data.
+
+Tableau Public requires an extract before a workbook can be published. On opening
+`India_Car_Registrations_2026.twbx` it shows that reminder: click OK, then
+**Data Source tab > Create Extract**. Tableau Desktop opens it without the prompt.
 
 The workbook is generated programmatically rather than clicked together — [`tableau/make_workbook.py`](tableau/make_workbook.py) writes the `.twb` XML and [`tableau/make_extract.py`](tableau/make_extract.py) builds the extract, so the whole dashboard rebuilds from the raw data with one command.
 
