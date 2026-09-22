@@ -12,8 +12,7 @@ import os
 PROJ = Path(__file__).resolve().parent.parent
 FIG = PROJ / "figures"
 FIG.mkdir(exist_ok=True)
-# BARE=1 renders the same charts without titles, for the LinkedIn carousel
-# (the carousel page supplies its own heading)
+# BARE=1 renders the same charts without titles, for slides that carry their own heading
 BARE = os.environ.get("BARE") == "1"
 PREFIX = "bare_" if BARE else ""
 

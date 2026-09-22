@@ -4,7 +4,7 @@ End-to-end analysis of **every new four-wheeler registered in India between 1 Ja
 
 **Source:** [Vahan 4 Dashboard](https://vahan.parivahan.gov.in/vahan4dashboard/), Ministry of Road Transport & Highways, Government of India (via the daily mirror [hrshlpnchl/Vahan_data](https://github.com/hrshlpnchl/Vahan_data)).
 
-📊 [**LinkedIn carousel (PDF)**](India_Car_Market_2026_LinkedIn.pdf) · 📁 [Cleaning log](reports/cleaning_log.md) · 📈 [Tableau workbook](tableau/India_Car_Registrations_2026.twbx)
+📁 [Cleaning log](reports/cleaning_log.md) · 📈 [Tableau workbook](tableau/India_Car_Registrations_2026.twbx)
 
 ---
 

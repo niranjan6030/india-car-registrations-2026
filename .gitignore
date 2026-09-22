@@ -2,3 +2,8 @@ __pycache__/
 .DS_Store
 *.pyc
 tableau/extract.hyper
+
+# personal post assets, not part of the project
+India_Car_Market_2026_LinkedIn.pdf
+figures/make_linkedin_pdf.py
+figures/bare_*.png
