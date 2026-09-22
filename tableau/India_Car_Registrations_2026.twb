@@ -266,13 +266,6 @@
       <column caption='Cars Per Day' datatype='real' default-format='n#,##0' name='[Calculation_per_day]' role='measure' type='quantitative'>
         <calculation class='tableau' formula='SUM([Registrations]) / SUM({ FIXED [Month Name] : MAX([Days Covered]) })' />
       </column>
-      <extract count='-1' enabled='true' units='records'>
-        <connection authentication='auth-none' class='hyper' dbname='Data/extract.hyper'
-                    db-format='dataengine' default-settings='yes' schema='Extract' sslmode=''
-                    tablename='Extract' update-time='09/22/2026 10:55:02 AM' username='tableau_internal_user'>
-          <relation name='Extract' table='[Extract].[Extract]' type='table' />
-        </connection>
-      </extract>
     </datasource>
   </datasources>
   <worksheets>

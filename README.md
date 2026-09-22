@@ -66,8 +66,6 @@ Full step-by-step log: [`reports/cleaning_log.md`](reports/cleaning_log.md)
 
 ## Tableau workbook
 
-![Tableau workbook](screenshots/tableau_workbook.png)
-
 10 worksheets and 2 dashboards ("Overview", "The EV Shift"), built on a `.hyper` extract of 5,686 rows.
 
 The workbook is generated programmatically rather than clicked together — [`tableau/make_workbook.py`](tableau/make_workbook.py) writes the `.twb` XML and [`tableau/make_extract.py`](tableau/make_extract.py) builds the extract, so the whole dashboard rebuilds from the raw data with one command.

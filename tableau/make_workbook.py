@@ -109,13 +109,6 @@ DATASOURCE = f"""  <datasources>
         </metadata-records>
       </connection>
 {chr(10).join(ds_cols)}
-      <extract count='-1' enabled='true' units='records'>
-        <connection authentication='auth-none' class='hyper' dbname='Data/extract.hyper'
-                    db-format='dataengine' default-settings='yes' schema='Extract' sslmode=''
-                    tablename='Extract' update-time='{UPDATED}' username='tableau_internal_user'>
-          <relation name='Extract' table='[Extract].[Extract]' type='table' />
-        </connection>
-      </extract>
     </datasource>
   </datasources>"""
 
@@ -385,6 +378,5 @@ if __name__ == "__main__":
     twbx = OUT.with_suffix(".twbx")
     with zipfile.ZipFile(twbx, "w", zipfile.ZIP_DEFLATED) as z:
         z.write(OUT, OUT.name)
-        z.write(PROJ / "tableau/extract.hyper", "Data/extract.hyper")
         z.write(CSV_PATH, f"Data/{CSV_PATH.name}")  # extract's original source
     print(f"wrote {twbx} ({twbx.stat().st_size:,} bytes)")
