@@ -1,0 +1,7 @@
+month_date,month_name,month_num,quarter,days_covered,is_partial_month
+2026-01-01,Jan,1,Q1,31,False
+2026-02-01,Feb,2,Q1,28,False
+2026-03-01,Mar,3,Q1,31,False
+2026-04-01,Apr,4,Q2,30,False
+2026-05-01,May,5,Q2,31,False
+2026-06-01,Jun,6,Q2,17,True

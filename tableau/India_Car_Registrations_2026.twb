@@ -1,0 +1,966 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<workbook locale='en_US' source-build='2026.2.2 (20262.26.0819.2015)' source-platform='mac'
+          version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='India Car Registrations 2026' inline='true' name='CarData' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='tableau_cars_flat' name='CarDataleaf'>
+            <connection character-set='UTF-8' class='textscan' directory='Data'
+                        driver='' filename='tableau_cars_flat.csv' force-character-set='no'
+                        force-header='no' force-separator='no' header='yes' separator=','
+                        text-qualifier='&quot;' />
+          </named-connection>
+        </named-connections>
+        <relation connection='CarDataleaf' name='tableau_cars_flat#csv' table='[tableau_cars_flat#csv]' type='table'>
+          <columns character-set='UTF-8' header='yes' locale='en_US' separator=',' text-qualifier='&quot;'>
+            <column datatype='date' name='Month' ordinal='0' />
+            <column datatype='string' name='State' ordinal='1' />
+            <column datatype='string' name='Maker (legal entity)' ordinal='2' />
+            <column datatype='string' name='Powertrain' ordinal='3' />
+            <column datatype='integer' name='Registrations' ordinal='4' />
+            <column datatype='string' name='Brand' ordinal='5' />
+            <column datatype='string' name='Parent Group' ordinal='6' />
+            <column datatype='string' name='Origin Country' ordinal='7' />
+            <column datatype='string' name='Region' ordinal='8' />
+            <column datatype='string' name='State Code' ordinal='9' />
+            <column datatype='string' name='State or UT' ordinal='10' />
+            <column datatype='string' name='Map Location' ordinal='11' />
+            <column datatype='string' name='Month Name' ordinal='12' />
+            <column datatype='integer' name='Month Number' ordinal='13' />
+            <column datatype='string' name='Quarter' ordinal='14' />
+            <column datatype='integer' name='Days Covered' ordinal='15' />
+            <column datatype='boolean' name='Is Partial Month' ordinal='16' />
+            <column datatype='boolean' name='Is EV' ordinal='17' />
+          </columns>
+        </relation>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>Month</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[Month]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Month</remote-alias>
+            <ordinal>0</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>State</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[State]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>State</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Maker (legal entity)</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Maker (legal entity)]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Maker (legal entity)</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Powertrain</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Powertrain]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Powertrain</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Registrations</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Registrations]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Registrations</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Brand</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Brand]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Brand</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Parent Group</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Parent Group]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Parent Group</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Origin Country</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Origin Country]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Origin Country</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Region</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Region]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Region</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>State Code</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[State Code]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>State Code</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>State or UT</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[State or UT]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>State or UT</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Map Location</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Map Location]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Map Location</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Month Name</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Month Name]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Month Name</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Month Number</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Month Number]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Month Number</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Quarter</remote-name>
+            <remote-type>129</remote-type>
+            <local-name>[Quarter]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Quarter</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Days Covered</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[Days Covered]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Days Covered</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Is Partial Month</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Is Partial Month]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Is Partial Month</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>Is EV</remote-name>
+            <remote-type>11</remote-type>
+            <local-name>[Is EV]</local-name>
+            <parent-name>[tableau_cars_flat#csv]</parent-name>
+            <remote-alias>Is EV</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>boolean</local-type>
+            <aggregation>Count</aggregation>
+            <contains-null>true</contains-null>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <column datatype='date' name='[Month]' role='dimension' type='ordinal' />
+      <column datatype='string' name='[State]' role='dimension' type='nominal' semantic-role='[State].[Name]' />
+      <column datatype='string' name='[Maker (legal entity)]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Powertrain]' role='dimension' type='nominal' />
+      <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+      <column datatype='string' name='[Brand]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Parent Group]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Origin Country]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Region]' role='dimension' type='nominal' />
+      <column datatype='string' name='[State Code]' role='dimension' type='nominal' />
+      <column datatype='string' name='[State or UT]' role='dimension' type='nominal' />
+      <column datatype='string' name='[Map Location]' role='dimension' type='nominal' semantic-role='[State].[Name]' />
+      <column datatype='string' name='[Month Name]' role='dimension' type='nominal' />
+      <column datatype='integer' name='[Month Number]' role='dimension' type='ordinal' />
+      <column datatype='string' name='[Quarter]' role='dimension' type='nominal' />
+      <column datatype='integer' name='[Days Covered]' role='measure' type='quantitative' />
+      <column datatype='boolean' name='[Is Partial Month]' role='dimension' type='nominal' />
+      <column datatype='boolean' name='[Is EV]' role='dimension' type='nominal' />
+      <column caption='EV Registrations' datatype='integer' name='[Calculation_ev_reg]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='IF [Is EV] THEN [Registrations] ELSE 0 END' />
+      </column>
+      <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+      </column>
+      <column caption='Cars Per Day' datatype='real' default-format='n#,##0' name='[Calculation_per_day]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([Registrations]) / SUM({ FIXED [Month Name] : MAX([Days Covered]) })' />
+      </column>
+      <extract count='-1' enabled='true' units='records'>
+        <connection authentication='auth-none' class='hyper' dbname='Data/extract.hyper'
+                    db-format='dataengine' default-settings='yes' schema='Extract' sslmode=''
+                    tablename='Extract' update-time='09/22/2026 10:55:02 AM' username='tableau_internal_user'>
+          <relation name='Extract' table='[Extract].[Extract]' type='table' />
+        </connection>
+      </extract>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Total Cars'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Cars registered (1 Jan - 17 Jun 2026)</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column-instance column='[Registrations]' derivation='Sum' name='[sum:Registrations:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Text' />
+            <encodings>
+              <text column='[CarData].[sum:Registrations:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[CarData].[sum:Registrations:qk]</rows>
+        <cols></cols>
+      </table>
+    </worksheet>
+    <worksheet name='EV Share KPI'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Share of new cars that are electric</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column-instance column='[Calculation_ev_share]' derivation='Sum' name='[sum:Calculation_ev_share:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Text' />
+            <encodings>
+              <text column='[CarData].[sum:Calculation_ev_share:qk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[CarData].[sum:Calculation_ev_share:qk]</rows>
+        <cols></cols>
+      </table>
+    </worksheet>
+    <worksheet name='Monthly Trend'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Cars registered per day, by powertrain</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column caption='Cars Per Day' datatype='real' default-format='n#,##0' name='[Calculation_per_day]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Registrations]) / SUM({ FIXED [Month Name] : MAX([Days Covered]) })' />
+            </column>
+            <column datatype='date' name='[Month]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Powertrain]' role='dimension' type='nominal' />
+            <column-instance column='[Calculation_per_day]' derivation='Sum' name='[sum:Calculation_per_day:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Month]' derivation='Month-Trunc' name='[tmn:Month:ok]' pivot='key' type='ordinal' />
+            <column-instance column='[Powertrain]' derivation='None' name='[none:Powertrain:nk]' pivot='key' type='nominal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Area' />
+            <encodings>
+              <color column='[CarData].[none:Powertrain:nk]' />
+            </encodings>
+          </pane>
+        </panes>
+        <rows>[CarData].[sum:Calculation_per_day:qk]</rows>
+        <cols>[CarData].[tmn:Month:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='EV Share Curve'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>EV share of new cars, month by month</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column datatype='date' name='[Month]' role='dimension' type='ordinal' />
+            <column-instance column='[Calculation_ev_share]' derivation='Sum' name='[sum:Calculation_ev_share:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Month]' derivation='Month-Trunc' name='[tmn:Month:ok]' pivot='key' type='ordinal' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Line' />
+          </pane>
+        </panes>
+        <rows>[CarData].[sum:Calculation_ev_share:qk]</rows>
+        <cols>[CarData].[tmn:Month:ok]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Top Brands'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Registrations by brand</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[Brand]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column-instance column='[Brand]' derivation='None' name='[none:Brand:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Registrations]' derivation='Sum' name='[sum:Registrations:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:Brand:nk]</rows>
+        <cols>[CarData].[sum:Registrations:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='EV Brands'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Electric cars by brand</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[Brand]' role='dimension' type='nominal' />
+            <column caption='EV Registrations' datatype='integer' name='[Calculation_ev_reg]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Is EV] THEN [Registrations] ELSE 0 END' />
+            </column>
+            <column-instance column='[Brand]' derivation='None' name='[none:Brand:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_ev_reg]' derivation='Sum' name='[sum:Calculation_ev_reg:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:Brand:nk]</rows>
+        <cols>[CarData].[sum:Calculation_ev_reg:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='State EV Share'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>EV share by state</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[State]' role='dimension' type='nominal' semantic-role='[State].[Name]' />
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column-instance column='[State]' derivation='None' name='[none:State:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_ev_share]' derivation='Sum' name='[sum:Calculation_ev_share:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:State:nk]</rows>
+        <cols>[CarData].[sum:Calculation_ev_share:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Region Split'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Registrations by region</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[Region]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column-instance column='[Region]' derivation='None' name='[none:Region:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Registrations]' derivation='Sum' name='[sum:Registrations:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:Region:nk]</rows>
+        <cols>[CarData].[sum:Registrations:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='Origin Country'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>Where the brands come from</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[Origin Country]' role='dimension' type='nominal' />
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column-instance column='[Origin Country]' derivation='None' name='[none:Origin Country:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Registrations]' derivation='Sum' name='[sum:Registrations:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Bar' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:Origin Country:nk]</rows>
+        <cols>[CarData].[sum:Registrations:qk]</cols>
+      </table>
+    </worksheet>
+    <worksheet name='State EV Detail'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run fontcolor='#e6ecf5' fontsize='11'>EV share by state and brand</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='India Car Registrations 2026' name='CarData' />
+          </datasources>
+          <datasource-dependencies datasource='CarData'>
+            <column datatype='string' name='[State]' role='dimension' type='nominal' semantic-role='[State].[Name]' />
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column-instance column='[State]' derivation='None' name='[none:State:nk]' pivot='key' type='nominal' />
+            <column-instance column='[Calculation_ev_share]' derivation='Sum' name='[sum:Calculation_ev_share:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='worksheet'>
+            <format attr='background-color' value='#111a2e' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='1'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>[CarData].[none:State:nk]</rows>
+        <cols>[CarData].[sum:Calculation_ev_share:qk]</cols>
+      </table>
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard name='Overview'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#f59e0b' fontsize='16'>India&apos;s Car Market 2026 - 22.9 lakh cars registered, 1 Jan to 17 Jun</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <style>
+        <style-rule element='dashboard'>
+          <format attr='background-color' value='#0b1220' />
+        </style-rule>
+      </style>
+      <size maxheight='800' maxwidth='1200' minheight='800' minwidth='1200' />
+      <datasources>
+        <datasource caption='India Car Registrations 2026' name='CarData' />
+      </datasources>
+      <datasource-dependencies datasource='CarData'>
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column caption='EV Registrations' datatype='integer' name='[Calculation_ev_reg]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Is EV] THEN [Registrations] ELSE 0 END' />
+            </column>
+            <column caption='Cars Per Day' datatype='real' default-format='n#,##0' name='[Calculation_per_day]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Registrations]) / SUM({ FIXED [Month Name] : MAX([Days Covered]) })' />
+            </column>
+            <column datatype='string' name='[Origin Country]' role='dimension' type='nominal' />
+            <column datatype='date' name='[Month]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Powertrain]' role='dimension' type='nominal' />
+            <column datatype='string' name='[Brand]' role='dimension' type='nominal' />
+            <column datatype='string' name='[Region]' role='dimension' type='nominal' />
+      </datasource-dependencies>
+      <zones>
+        <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>
+            <zone h='7000' id='2' type-v2='text' w='100000' x='0' y='0'>
+              <formatted-text>
+                <run bold='true' fontcolor='#f59e0b' fontsize='16'>India&apos;s Car Market 2026 - 22.9 lakh cars registered, 1 Jan to 17 Jun</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='background-color' value='#0b1220' />
+                <format attr='border-style' value='none' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='15000' id='11' name='Total Cars' w='25000' x='0' y='7000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='15000' id='12' name='EV Share KPI' w='25000' x='25000' y='7000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='15000' id='13' name='Origin Country' w='50000' x='50000' y='7000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='40000' id='14' name='Monthly Trend' w='55000' x='0' y='22000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='40000' id='15' name='Top Brands' w='45000' x='55000' y='22000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='38000' id='16' name='Region Split' w='100000' x='0' y='62000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+        </zone>
+      </zones>
+    </dashboard>
+    <dashboard name='The EV Shift'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run bold='true' fontcolor='#f59e0b' fontsize='16'>The EV Shift - 3.5% of new cars in January, 7.5% by June</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <style>
+        <style-rule element='dashboard'>
+          <format attr='background-color' value='#0b1220' />
+        </style-rule>
+      </style>
+      <size maxheight='800' maxwidth='1200' minheight='800' minwidth='1200' />
+      <datasources>
+        <datasource caption='India Car Registrations 2026' name='CarData' />
+      </datasources>
+      <datasource-dependencies datasource='CarData'>
+            <column datatype='integer' name='[Registrations]' role='measure' type='quantitative' />
+            <column caption='EV Share' datatype='real' default-format='p0.0%' name='[Calculation_ev_share]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([Calculation_ev_reg]) / SUM([Registrations])' />
+            </column>
+            <column caption='EV Registrations' datatype='integer' name='[Calculation_ev_reg]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='IF [Is EV] THEN [Registrations] ELSE 0 END' />
+            </column>
+            <column datatype='date' name='[Month]' role='dimension' type='ordinal' />
+            <column datatype='string' name='[Brand]' role='dimension' type='nominal' />
+            <column datatype='string' name='[State]' role='dimension' type='nominal' semantic-role='[State].[Name]' />
+      </datasource-dependencies>
+      <zones>
+        <zone h='100000' id='1' type-v2='layout-basic' w='100000' x='0' y='0'>
+            <zone h='7000' id='2' type-v2='text' w='100000' x='0' y='0'>
+              <formatted-text>
+                <run bold='true' fontcolor='#f59e0b' fontsize='16'>The EV Shift - 3.5% of new cars in January, 7.5% by June</run>
+              </formatted-text>
+              <zone-style>
+                <format attr='background-color' value='#0b1220' />
+                <format attr='border-style' value='none' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='35000' id='21' name='EV Share Curve' w='100000' x='0' y='7000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='58000' id='22' name='EV Brands' w='50000' x='0' y='42000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+            <zone h='58000' id='23' name='State EV Share' w='50000' x='50000' y='42000'>
+              <zone-style>
+                <format attr='border-color' value='#1f2b45' />
+                <format attr='border-style' value='solid' />
+                <format attr='border-width' value='1' />
+                <format attr='margin' value='4' />
+              </zone-style>
+            </zone>
+        </zone>
+      </zones>
+    </dashboard>
+  </dashboards>
+  <windows source-height='30'>
+    <window class='worksheet' name='Total Cars'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='EV Share KPI'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Monthly Trend'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='EV Share Curve'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Top Brands'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='EV Brands'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='State EV Share'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Region Split'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='Origin Country'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='worksheet' name='State EV Detail'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+      </cards>
+    </window>
+    <window class='dashboard' name='Overview'>
+      <viewpoints />
+      <active id='-1' />
+    </window>
+    <window class='dashboard' name='The EV Shift'>
+      <viewpoints />
+      <active id='-1' />
+    </window>
+  </windows>
+</workbook>

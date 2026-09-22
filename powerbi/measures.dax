@@ -1,0 +1,106 @@
+// =====================================================================
+//  DAX measures - India Car Registrations 2026
+//  Create each one on the fact_registrations table:
+//  (semantic model > Open data model > select fact_registrations > New measure)
+//  Paste ONE measure at a time (name = expression).
+// =====================================================================
+
+// ---------- core ----------
+Car Registrations =
+CALCULATE (
+    SUM ( fact_registrations[registrations] ),
+    dim_maker[is_passenger_car] = TRUE ()
+)
+
+EV Registrations =
+CALCULATE ( [Car Registrations], fact_registrations[powertrain] = "Electric (EV)" )
+
+ICE Registrations =
+CALCULATE ( [Car Registrations], fact_registrations[powertrain] <> "Electric (EV)" )
+
+EV Share % =
+DIVIDE ( [EV Registrations], [Car Registrations] )
+
+// ---------- fair comparison across months (June only has 17 days of data) ----------
+Days Covered =
+SUM ( dim_date[days_covered] )
+
+Avg Daily Registrations =
+DIVIDE ( [Car Registrations], [Days Covered] )
+
+Avg Daily EVs =
+DIVIDE ( [EV Registrations], [Days Covered] )
+
+// ---------- market share ----------
+Market Share % =
+DIVIDE (
+    [Car Registrations],
+    CALCULATE ( [Car Registrations], REMOVEFILTERS ( dim_maker ) )
+)
+
+EV Market Share % =
+DIVIDE (
+    [EV Registrations],
+    CALCULATE ( [EV Registrations], REMOVEFILTERS ( dim_maker ) )
+)
+
+Brand Rank =
+IF (
+    ISBLANK ( [Car Registrations] ),
+    BLANK (),
+    RANKX ( ALLSELECTED ( dim_maker[brand] ), [Car Registrations] )
+)
+
+Top Brand =
+FIRSTNONBLANK (
+    TOPN ( 1, VALUES ( dim_maker[brand] ), [Car Registrations] ),
+    1
+)
+
+Top EV State =
+FIRSTNONBLANK (
+    TOPN (
+        1,
+        FILTER ( VALUES ( dim_state[state] ), [Car Registrations] > 5000 ),
+        [EV Share %]
+    ),
+    1
+)
+
+// ---------- month-on-month ----------
+EV Share Prev Month =
+VAR m = MAX ( dim_date[month_num] )
+RETURN
+    CALCULATE ( [EV Share %], FILTER ( ALL ( dim_date ), dim_date[month_num] = m - 1 ) )
+
+EV Share MoM (pp) =
+VAR prev = [EV Share Prev Month]
+RETURN
+    IF ( ISBLANK ( prev ), BLANK (), ( [EV Share %] - prev ) * 100 )
+
+EV Share Jan to Latest (pp) =
+VAR firstM = CALCULATE ( [EV Share %], dim_date[month_num] = 1 )
+VAR lastM =
+    CALCULATE ( [EV Share %], dim_date[month_num] = CALCULATE ( MAX ( dim_date[month_num] ), ALL ( dim_date ) ) )
+RETURN
+    ( lastM - firstM ) * 100
+
+// ---------- data-quality page ----------
+All 4W Registrations =
+SUM ( fact_registrations[registrations] )
+
+Non-Car Registrations =
+CALCULATE ( [All 4W Registrations], dim_maker[is_passenger_car] = FALSE () )
+
+Non-Car Share of 4W % =
+DIVIDE ( [Non-Car Registrations], [All 4W Registrations] )
+
+// ---------- dynamic titles ----------
+Title Overview =
+"India registered "
+    & FORMAT ( [Car Registrations] / 100000, "0.0" ) & " lakh new cars in "
+    & FORMAT ( [Days Covered], "0" ) & " days of 2026"
+
+Title EV =
+"EV share climbed "
+    & FORMAT ( [EV Share Jan to Latest (pp)], "0.0" ) & " points since January"
