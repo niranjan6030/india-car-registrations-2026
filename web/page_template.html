@@ -1,0 +1,540 @@
+<title>India Car Registrations 2026</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.6.0/echarts.min.js"></script>
+<style>
+  :root{
+    color-scheme: dark;
+    --ground:#0E0E12; --surface:#17171D; --surface-2:#1E1E26; --line:#282833;
+    --ink:#F4F4F6; --ink-2:#C3C6D0; --muted:#8E93A1;
+    --accent:#EA580C; --accent-ink:#FB923C;
+    --c1:#EA580C; --c2:#0D9488; --c3:#3B82F6; --c4:#DB2777; --c5:#65A30D; --c6:#9333EA;
+    --ev:#0D9488; --ev-ink:#2DD4BF;
+    --good:#4ADE80; --bad:#F87171;
+    --r:14px;
+    --display:'Archivo', 'Helvetica Neue', Arial, sans-serif;
+    --body:'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--ground); color:var(--ink);
+    font-family:var(--body); font-size:14px; line-height:1.5;
+    padding-inline:16px; padding-block:16px 40px;
+    font-variant-numeric:tabular-nums;
+  }
+  .wrap{max-width:1560px; margin:0 auto; display:flex; flex-direction:column; gap:12px}
+
+  /* header ---------------------------------------------------------------- */
+  .top{display:flex; flex-wrap:wrap; gap:12px; align-items:stretch}
+  .brandbar{
+    flex:1 1 420px; background:var(--surface); border:1px solid var(--line);
+    border-radius:var(--r); padding:16px 20px; display:flex; flex-direction:column; gap:6px;
+    border-left:3px solid var(--accent);
+  }
+  h1{
+    font-family:var(--display); font-weight:700; font-size:clamp(20px,2.4vw,28px);
+    margin:0; letter-spacing:-.01em; text-wrap:balance;
+  }
+  h1 span{color:var(--accent-ink)}
+  .sub{color:var(--muted); font-size:12.5px}
+  .sub b{color:var(--ink-2); font-weight:500}
+
+  .filters{display:flex; flex-wrap:wrap; gap:10px; align-items:stretch}
+  .field{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:10px 14px; display:flex; flex-direction:column; gap:4px; min-width:170px;
+  }
+  .field label{font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted)}
+  .field select{
+    appearance:none; background:transparent; border:0; color:var(--ink);
+    font:600 14px var(--body); padding:0 18px 0 0; cursor:pointer;
+    background-image:linear-gradient(45deg,transparent 50%,var(--accent-ink) 50%),linear-gradient(135deg,var(--accent-ink) 50%,transparent 50%);
+    background-position:calc(100% - 8px) 9px, calc(100% - 4px) 9px;
+    background-size:4px 4px,4px 4px; background-repeat:no-repeat;
+  }
+  .field select:focus-visible{outline:2px solid var(--accent-ink); outline-offset:3px}
+
+  .months{display:flex; gap:4px; flex-wrap:wrap; padding-top:2px}
+  .chip{
+    font:500 12px var(--body); color:var(--ink-2); background:var(--surface-2);
+    border:1px solid var(--line); border-radius:999px; padding:3px 10px; cursor:pointer;
+  }
+  .chip[aria-pressed="true"]{background:var(--accent); border-color:var(--accent); color:#fff}
+  .chip:focus-visible{outline:2px solid var(--accent-ink); outline-offset:2px}
+
+  .active-row{display:flex; gap:8px; flex-wrap:wrap; align-items:center; min-height:22px}
+  .active-row .lbl{font-size:11.5px; color:var(--muted)}
+  .pill{
+    display:inline-flex; align-items:center; gap:7px; font:500 12px var(--body);
+    background:var(--surface-2); border:1px solid var(--line); border-radius:999px;
+    padding:3px 6px 3px 11px; color:var(--ink);
+  }
+  .pill button{
+    all:unset; cursor:pointer; width:17px; height:17px; border-radius:50%;
+    display:grid; place-items:center; background:var(--line); color:var(--ink-2); font-size:11px;
+  }
+  .pill button:hover{background:var(--accent); color:#fff}
+  .pill button:focus-visible{outline:2px solid var(--accent-ink); outline-offset:2px}
+
+  /* kpi ------------------------------------------------------------------- */
+  .kpis{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:12px}
+  .kpi{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:14px 16px; display:grid; grid-template-columns:1fr auto; gap:2px 10px; align-items:start;
+  }
+  .kpi .k-label{grid-column:1/2; font-size:10.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--muted)}
+  .kpi .k-value{grid-column:1/2; font:700 26px/1.15 var(--display); letter-spacing:-.02em}
+  .kpi .k-foot{grid-column:1/3; display:flex; align-items:baseline; gap:8px; font-size:11.5px; color:var(--muted); margin-top:2px}
+  .kpi .delta{font-weight:600}
+  .kpi .delta.up{color:var(--good)} .kpi .delta.down{color:var(--bad)}
+  .kpi .spark{grid-column:2/3; grid-row:1/3; width:84px; height:38px}
+
+  /* panels ---------------------------------------------------------------- */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(330px,1fr)); gap:12px}
+  .panel{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+    padding:14px 16px 10px; display:flex; flex-direction:column; min-width:0;
+  }
+  .panel h2{font:600 13.5px var(--display); margin:0; letter-spacing:.01em}
+  .panel .note{font-size:11.5px; color:var(--muted); margin:2px 0 8px}
+  .panel .hint{font-size:11px; color:var(--muted); margin-top:auto; padding-top:6px}
+  .chart{width:100%; height:236px}
+  .tall .chart{height:300px}
+  .wide{grid-column:span 2}
+  @media (max-width:760px){ .wide{grid-column:span 1} }
+
+  /* insights & table ------------------------------------------------------ */
+  .insights ul{margin:6px 0 0; padding:0; list-style:none; display:flex; flex-direction:column; gap:9px}
+  .insights li{display:grid; grid-template-columns:auto 1fr; gap:9px; font-size:13px; color:var(--ink-2)}
+  .insights li i{
+    width:6px; height:6px; border-radius:2px; background:var(--accent); margin-top:7px; display:block;
+  }
+  .insights b{color:var(--ink); font-weight:600}
+  details.table{
+    background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:12px 16px;
+  }
+  details.table summary{cursor:pointer; font:600 13px var(--display); color:var(--ink-2)}
+  details.table summary:focus-visible{outline:2px solid var(--accent-ink); outline-offset:3px}
+  .tablebox{overflow-x:auto; margin-top:10px}
+  table{border-collapse:collapse; width:100%; font-size:12.5px; min-width:520px}
+  th,td{text-align:right; padding:6px 10px; border-bottom:1px solid var(--line); white-space:nowrap}
+  th:first-child,td:first-child{text-align:left}
+  th{color:var(--muted); font-weight:500; text-transform:uppercase; font-size:10.5px; letter-spacing:.07em}
+  td .sw{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:7px}
+
+  footer{color:var(--muted); font-size:11.5px; display:flex; flex-wrap:wrap; gap:6px 14px; padding:2px 2px 0}
+  footer a{color:var(--accent-ink)}
+  @media (prefers-reduced-motion:reduce){*{animation-duration:.001ms!important; transition-duration:.001ms!important}}
+</style>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brandbar">
+      <h1>India Car Registrations <span>2026</span></h1>
+      <div class="sub">Vahan Dashboard, Ministry of Road Transport &amp; Highways &nbsp;&middot;&nbsp;
+        <b id="period">1 Jan &ndash; 17 Jun 2026</b> &nbsp;&middot;&nbsp; 36 states and UTs &nbsp;&middot;&nbsp;
+        146 raw files cleaned</div>
+      <div class="active-row" id="activeRow"><span class="lbl">No filters &mdash; showing all passenger cars</span></div>
+    </div>
+
+    <div class="filters">
+      <div class="field">
+        <label for="fRegion">Region</label>
+        <select id="fRegion"><option value="">All India</option></select>
+      </div>
+      <div class="field">
+        <label for="fPower">Powertrain</label>
+        <select id="fPower">
+          <option value="">All</option>
+          <option value="ev">Electric only</option>
+          <option value="ice">Petrol / diesel / CNG</option>
+        </select>
+      </div>
+      <div class="field" style="min-width:230px">
+        <label>Months</label>
+        <div class="months" id="monthChips"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="grid">
+    <section class="panel">
+      <h2>Registrations per day</h2>
+      <p class="note">Per-day, because June holds only 17 days of data</p>
+      <div class="chart" id="cTrend"></div>
+    </section>
+
+    <section class="panel">
+      <h2>EV share of new cars</h2>
+      <p class="note">Share of the month's registrations that were electric</p>
+      <div class="chart" id="cEvShare"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Registrations by region</h2>
+      <p class="note">Share of the selected registrations</p>
+      <div class="chart" id="cRegion"></div>
+    </section>
+
+    <section class="panel tall">
+      <h2>Top brands</h2>
+      <p class="note">Click a bar to filter the whole dashboard</p>
+      <div class="chart" id="cBrands"></div>
+    </section>
+
+    <section class="panel tall">
+      <h2>Electric cars by brand</h2>
+      <p class="note">Who is actually selling EVs</p>
+      <div class="chart" id="cEvBrands"></div>
+    </section>
+
+    <section class="panel tall">
+      <h2>Top states</h2>
+      <p class="note">Click a bar to filter the whole dashboard</p>
+      <div class="chart" id="cStates"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Brand origin</h2>
+      <p class="note">Country the brand belongs to, by registrations</p>
+      <div class="chart" id="cOrigin"></div>
+    </section>
+
+    <section class="panel">
+      <h2>What the raw 4W data holds</h2>
+      <p class="note">Before cleaning &mdash; unaffected by the filters above</p>
+      <div class="chart" id="cSegments"></div>
+    </section>
+
+    <section class="panel insights">
+      <h2>What the data says</h2>
+      <p class="note">Recalculated from the current selection</p>
+      <ul id="insights"></ul>
+    </section>
+  </div>
+
+  <details class="table">
+    <summary>View the numbers as a table</summary>
+    <div class="tablebox">
+      <table id="dataTable">
+        <thead><tr><th>Brand</th><th>Registrations</th><th>Share</th><th>Electric</th><th>EV share</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </details>
+
+  <footer>
+    <span>Source: Vahan 4 Dashboard, MoRTH, Government of India. Registrations, not factory dispatches.</span>
+    <span>June covers 1&ndash;17 only.</span>
+    <a href="https://github.com/niranjan6030/india-car-registrations-2026">Pipeline and cleaning log on GitHub</a>
+  </footer>
+</div>
+
+<script>
+const DATA = __DATA__;
+const CSS = getComputedStyle(document.documentElement);
+const C = n => CSS.getPropertyValue(n).trim();
+const CAT = [C('--c1'), C('--c2'), C('--c3'), C('--c4'), C('--c5'), C('--c6')];
+const ACCENT = C('--c1'), EV = C('--ev'), INK = C('--ink'), INK2 = C('--ink-2'), MUTED = C('--muted'),
+      LINE = C('--line'), SURFACE = C('--surface-2');
+const F = new Intl.NumberFormat('en-IN');
+const lakh = n => (n / 100000).toFixed(n >= 1000000 ? 1 : 2) + 'L';
+const pct = n => n.toFixed(1) + '%';
+
+const state = { region: '', power: '', months: new Set(DATA.months.map((_, i) => i)),
+                brand: null, stateSel: null };
+
+/* ---------------------------------------------------------------- filtering */
+function rowsNow(ignore) {
+  const regionIx = state.region === '' ? -1 : DATA.regions.indexOf(state.region);
+  return DATA.rows.filter(r => {
+    if (!state.months.has(r[0])) return false;
+    if (regionIx >= 0 && DATA.stateRegion[r[1]] !== regionIx) return false;
+    if (state.power === 'ev' && r[3] !== 1) return false;
+    if (state.power === 'ice' && r[3] !== 0) return false;
+    if (state.brand !== null && ignore !== 'brand' && r[2] !== state.brand) return false;
+    if (state.stateSel !== null && ignore !== 'state' && r[1] !== state.stateSel) return false;
+    return true;
+  });
+}
+const sum = (rs, f = () => true) => rs.reduce((a, r) => a + (f(r) ? r[4] : 0), 0);
+const byKey = (rs, ix, names) => {
+  const out = new Map();
+  for (const r of rs) out.set(names[r[ix]], (out.get(names[r[ix]]) || 0) + r[4]);
+  return [...out.entries()].sort((a, b) => b[1] - a[1]);
+};
+const daysSelected = () => [...state.months].reduce((a, m) => a + DATA.days[m], 0);
+
+/* ------------------------------------------------------------------- charts */
+const base = {
+  backgroundColor: 'transparent',
+  textStyle: { fontFamily: "'IBM Plex Sans', sans-serif", color: INK2, fontSize: 11.5 },
+  animationDuration: 420,
+  tooltip: {
+    backgroundColor: SURFACE, borderColor: LINE, borderWidth: 1,
+    textStyle: { color: INK, fontSize: 12 }, padding: [8, 11],
+    extraCssText: 'border-radius:10px; box-shadow:0 8px 24px rgba(0,0,0,.45)'
+  }
+};
+const axisCommon = {
+  axisLine: { lineStyle: { color: LINE } },
+  axisTick: { show: false },
+  axisLabel: { color: MUTED },
+  splitLine: { lineStyle: { color: LINE, type: [3, 4] } }
+};
+const charts = {};
+function chart(id) {
+  if (!charts[id]) {
+    charts[id] = echarts.init(document.getElementById(id), null, { renderer: 'svg' });
+    new ResizeObserver(() => charts[id].resize()).observe(document.getElementById(id));
+  }
+  return charts[id];
+}
+function barH(id, pairs, color, opts = {}) {
+  const c = chart(id);
+  const names = pairs.map(p => p[0]).reverse();
+  const vals = pairs.map(p => p[1]).reverse();
+  const max = Math.max(...vals, 1);
+  c.setOption({
+    ...base,
+    grid: { left: 4, right: 74, top: 6, bottom: 4, containLabel: true },
+    xAxis: { type: 'value', show: false, max: max * 1.18 },
+    yAxis: { type: 'category', data: names, ...axisCommon,
+             axisLabel: { color: INK2, fontSize: 11.5 }, splitLine: { show: false } },
+    tooltip: { ...base.tooltip, trigger: 'item',
+               formatter: p => `${p.name}<br><b>${F.format(p.value)}</b> ${opts.unit || 'registrations'}` },
+    series: [{
+      type: 'bar', data: vals, barWidth: opts.thin ? 11 : 13,
+      itemStyle: { color: typeof color === 'function' ? color : color, borderRadius: [0, 4, 4, 0] },
+      label: { show: true, position: 'right', color: INK2, fontSize: 11,
+               formatter: p => opts.label ? opts.label(p) : lakh(p.value) }
+    }]
+  }, true);
+  c.off('click');
+  if (opts.onClick) c.on('click', p => opts.onClick(p.name));
+  c.getZr().on('mousemove', e => { c.getZr().setCursorStyle(opts.onClick ? 'pointer' : 'default'); });
+}
+
+/* ---------------------------------------------------------------- rendering */
+function sparkline(values, color) {
+  const w = 84, h = 38, max = Math.max(...values), min = Math.min(...values);
+  const span = (max - min) || 1;
+  const pts = values.map((v, i) => [i / (values.length - 1) * (w - 4) + 2,
+                                    h - 4 - (v - min) / span * (h - 12)]);
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + p[1].toFixed(1)).join(' ');
+  const area = d + ` L${w - 2} ${h - 2} L2 ${h - 2} Z`;
+  const last = pts[pts.length - 1];
+  return `<svg class="spark" viewBox="0 0 ${w} ${h}" aria-hidden="true">
+    <path d="${area}" fill="${color}" fill-opacity=".14"></path>
+    <path d="${d}" fill="none" stroke="${color}" stroke-width="2" stroke-linejoin="round"></path>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3" fill="${color}"></circle></svg>`;
+}
+
+function kpiCard(label, value, foot, delta, series, color) {
+  const dir = delta == null ? '' : (delta >= 0 ? 'up' : 'down');
+  const arrow = delta == null ? '' : (delta >= 0 ? '\u25B2' : '\u25BC');
+  const dtxt = delta == null ? '' :
+    `<span class="delta ${dir}">${arrow} ${Math.abs(delta).toFixed(1)}${foot.unit}</span>`;
+  return `<div class="kpi">
+      <div class="k-label">${label}</div>
+      <div class="k-value">${value}</div>
+      ${sparkline(series, color)}
+      <div class="k-foot">${dtxt}<span>${foot.text}</span></div>
+    </div>`;
+}
+
+function render() {
+  const rs = rowsNow();
+  const total = sum(rs), evTotal = sum(rs, r => r[3] === 1);
+  const months = [...state.months].sort((a, b) => a - b);
+
+  const perMonth = DATA.months.map((_, m) => sum(rs.filter(r => r[0] === m)));
+  const evMonth = DATA.months.map((_, m) => sum(rs.filter(r => r[0] === m && r[3] === 1)));
+  const sel = months.map(m => perMonth[m]);
+  const selDays = months.map(m => DATA.days[m]);
+  const perDay = sel.map((v, i) => v / selDays[i]);
+  const evShare = months.map(m => perMonth[m] ? evMonth[m] / perMonth[m] * 100 : 0);
+
+  const last = perDay.length - 1;
+  const dPerDay = last > 0 ? (perDay[last] / perDay[last - 1] - 1) * 100 : null;
+  const dEvPP = last > 0 ? evShare[last] - evShare[last - 1] : null;
+  const cmp = last > 0 ? `${DATA.months[months[last]]} vs ${DATA.months[months[last - 1]]}` : 'single month';
+
+  const brands = byKey(rowsNow('brand'), 2, DATA.brands);
+  const statesAgg = byKey(rowsNow('state'), 1, DATA.states);
+  const topBrand = brands[0] || ['\u2014', 0];
+
+  /* KPI strip */
+  document.getElementById('kpis').innerHTML = [
+    kpiCard('Cars registered', lakh(total), { text: cmp, unit: '%' }, dPerDay, perDay.length > 1 ? perDay : [0, 0], ACCENT),
+    kpiCard('Electric cars', F.format(evTotal), { text: 'EVs per day, ' + cmp, unit: '%' },
+      last > 0 && evMonth[months[last - 1]] ? ((evMonth[months[last]] / selDays[last]) / (evMonth[months[last - 1]] / selDays[last - 1]) - 1) * 100 : null,
+      months.map(m => evMonth[m] || 0), EV),
+    kpiCard('EV share', total ? pct(evTotal / total * 100) : '\u2014', { text: cmp, unit: ' pp' }, dEvPP, evShare, EV),
+    kpiCard('Cars per day', total ? F.format(Math.round(total / daysSelected())) : '\u2014',
+      { text: cmp, unit: '%' }, dPerDay, perDay.length > 1 ? perDay : [0, 0], ACCENT),
+    kpiCard('Leading brand', topBrand[0],
+      { text: `${lakh(topBrand[1])} \u00B7 ${total ? pct(topBrand[1] / total * 100) : '\u2014'} of selection`, unit: '%' },
+      null, brands.slice(0, 6).map(b => b[1]), ACCENT)
+  ].join('');
+
+  /* per-day bars */
+  chart('cTrend').setOption({
+    ...base,
+    grid: { left: 6, right: 12, top: 22, bottom: 4, containLabel: true },
+    xAxis: { type: 'category', data: months.map(m => DATA.months[m]), ...axisCommon, splitLine: { show: false } },
+    yAxis: { type: 'value', ...axisCommon, axisLine: { show: false },
+             axisLabel: { color: MUTED, formatter: v => v >= 1000 ? (v / 1000) + 'k' : v } },
+    tooltip: { ...base.tooltip, trigger: 'axis', axisPointer: { type: 'shadow' },
+               formatter: p => `${p[0].name}<br><b>${F.format(Math.round(p[0].value))}</b> cars per day` },
+    series: [{ type: 'bar', data: perDay.map(v => Math.round(v)), barMaxWidth: 46,
+               itemStyle: { color: ACCENT, borderRadius: [4, 4, 0, 0] },
+               label: { show: true, position: 'top', color: INK2, fontSize: 11,
+                        formatter: p => (p.value / 1000).toFixed(1) + 'k' } }]
+  }, true);
+
+  /* ev share line */
+  chart('cEvShare').setOption({
+    ...base,
+    grid: { left: 6, right: 16, top: 24, bottom: 4, containLabel: true },
+    xAxis: { type: 'category', data: months.map(m => DATA.months[m]), ...axisCommon, boundaryGap: false, splitLine: { show: false } },
+    yAxis: { type: 'value', ...axisCommon, axisLine: { show: false }, axisLabel: { color: MUTED, formatter: v => v + '%' } },
+    tooltip: { ...base.tooltip, trigger: 'axis',
+               formatter: p => `${p[0].name}<br><b>${p[0].value.toFixed(2)}%</b> of new cars were electric` },
+    series: [{ type: 'line', data: evShare.map(v => +v.toFixed(2)), smooth: false,
+               lineStyle: { width: 2, color: EV }, itemStyle: { color: EV, borderColor: SURFACE, borderWidth: 2 },
+               symbolSize: 9, areaStyle: { color: EV, opacity: .12 },
+               label: { show: true, color: INK2, fontSize: 11, formatter: p => p.value.toFixed(1) + '%' } }]
+  }, true);
+
+  /* region donut */
+  const regionAgg = byKey(rs, 1, DATA.stateRegion.map(i => DATA.regions[i]));
+  chart('cRegion').setOption({
+    ...base,
+    tooltip: { ...base.tooltip, trigger: 'item',
+               formatter: p => `${p.name}<br><b>${F.format(p.value)}</b> \u00B7 ${p.percent}%` },
+    legend: { orient: 'vertical', right: 4, top: 'center', itemWidth: 9, itemHeight: 9,
+              textStyle: { color: INK2, fontSize: 11.5 }, icon: 'roundRect' },
+    series: [{
+      type: 'pie', radius: ['58%', '84%'], center: ['32%', '50%'], avoidLabelOverlap: true,
+      itemStyle: { borderColor: C('--surface'), borderWidth: 2, borderRadius: 3 },
+      label: { show: false }, labelLine: { show: false },
+      data: regionAgg.map((r, i) => ({ name: r[0], value: r[1], itemStyle: { color: CAT[i % CAT.length] } }))
+    }]
+  }, true);
+
+  /* brands, ev brands, states, origin */
+  barH('cBrands', brands.slice(0, 9), ACCENT, {
+    onClick: name => { const ix = DATA.brands.indexOf(name);
+                       state.brand = state.brand === ix ? null : ix; render(); }
+  });
+  const evBrands = byKey(rowsNow('brand').filter(r => r[3] === 1), 2, DATA.brands).slice(0, 7);
+  barH('cEvBrands', evBrands, EV, {
+    unit: 'electric cars',
+    label: p => F.format(p.value) + (evTotal ? '  (' + (p.value / evTotal * 100).toFixed(1) + '%)' : ''),
+    onClick: name => { const ix = DATA.brands.indexOf(name);
+                       state.brand = state.brand === ix ? null : ix; render(); }
+  });
+  const evByState = new Map();
+  for (const r of rowsNow('state')) if (r[3] === 1) evByState.set(r[1], (evByState.get(r[1]) || 0) + r[4]);
+  barH('cStates', statesAgg.slice(0, 9), ACCENT, {
+    label: p => {
+      const ix = DATA.states.indexOf(p.name);
+      const share = p.value ? (evByState.get(ix) || 0) / p.value * 100 : 0;
+      return `${lakh(p.value)}  EV ${share.toFixed(1)}%`;
+    },
+    onClick: name => { const ix = DATA.states.indexOf(name);
+                       state.stateSel = state.stateSel === ix ? null : ix; render(); }
+  });
+  barH('cOrigin', byKey(rs, 2, DATA.brandOrigin.map(i => DATA.origins[i])).slice(0, 6), ACCENT, { thin: true });
+
+  /* raw 4W bucket (pre-clean, static) */
+  const carSeg = DATA.segments.find(s => s[0] === 'Passenger car')[1];
+  const notCar = DATA.meta.all4w - carSeg;
+  chart('cSegments').setOption({
+    ...base,
+    tooltip: { ...base.tooltip, trigger: 'item',
+               formatter: p => `${p.name}<br><b>${F.format(p.value)}</b> \u00B7 ${p.percent}%` },
+    legend: { orient: 'vertical', right: 4, top: 'center', itemWidth: 9, itemHeight: 9,
+              textStyle: { color: INK2, fontSize: 11.5 }, icon: 'roundRect' },
+    series: [{
+      type: 'pie', radius: ['58%', '84%'], center: ['30%', '50%'],
+      itemStyle: { borderColor: C('--surface'), borderWidth: 2, borderRadius: 3 },
+      label: { show: false }, labelLine: { show: false },
+      data: [{ name: 'Passenger cars', value: carSeg, itemStyle: { color: ACCENT } },
+             ...DATA.segments.filter(s => s[0] !== 'Passenger car').slice(0, 4)
+               .map((s, i) => ({ name: s[0], value: s[1], itemStyle: { color: CAT[(i + 1) % CAT.length] } }))]
+    }]
+  }, true);
+
+  /* insights */
+  const first = evShare[0], lastShare = evShare[evShare.length - 1];
+  const evLead = evBrands.slice(0, 3);
+  const evLeadShare = evTotal ? evLead.reduce((a, b) => a + b[1], 0) / evTotal * 100 : 0;
+  const peak = perDay.indexOf(Math.max(...perDay));
+  const topStates = statesAgg.slice(0, 3);
+  const items = [
+    `EV share moved from <b>${pct(first)}</b> in ${DATA.months[months[0]]} to <b>${pct(lastShare)}</b> in ${DATA.months[months[months.length - 1]]}, ending at <b>${total ? pct(evTotal / total * 100) : '\u2014'}</b> across the selection.`,
+    `<b>${topBrand[0]}</b> leads with <b>${total ? pct(topBrand[1] / total * 100) : '\u2014'}</b> of registrations, while <b>${evLead.map(b => b[0]).join(', ')}</b> together sell <b>${pct(evLeadShare)}</b> of the electric cars.`,
+    `<b>${DATA.months[months[peak]]}</b> is the busiest month at <b>${F.format(Math.round(perDay[peak]))}</b> cars a day against a <b>${F.format(Math.round(total / daysSelected()))}</b> average.`,
+    `<b>${topStates.map(s => s[0]).join(', ')}</b> account for <b>${total ? pct(topStates.reduce((a, b) => a + b[1], 0) / total * 100) : '\u2014'}</b> of the selected registrations.`,
+    `<b>${(notCar / DATA.meta.all4w * 100).toFixed(0)}%</b> of the raw four-wheeler category was tractors, trailers and construction equipment \u2014 removed before any of these numbers.`
+  ];
+  document.getElementById('insights').innerHTML = items.map(t => `<li><i></i><span>${t}</span></li>`).join('');
+
+  /* table */
+  document.querySelector('#dataTable tbody').innerHTML = brands.slice(0, 12).map((b, i) => {
+    const ix = DATA.brands.indexOf(b[0]);
+    const evb = sum(rowsNow('brand').filter(r => r[2] === ix && r[3] === 1));
+    return `<tr><td><span class="sw" style="background:${ACCENT}"></span>${b[0]}</td>
+      <td>${F.format(b[1])}</td><td>${total ? pct(b[1] / total * 100) : '\u2014'}</td>
+      <td>${F.format(evb)}</td><td>${b[1] ? pct(evb / b[1] * 100) : '\u2014'}</td></tr>`;
+  }).join('');
+
+  /* active filter pills */
+  const pills = [];
+  if (state.region) pills.push(['Region: ' + state.region, () => { state.region = ''; document.getElementById('fRegion').value = ''; }]);
+  if (state.power) pills.push([state.power === 'ev' ? 'Electric only' : 'Petrol / diesel / CNG',
+    () => { state.power = ''; document.getElementById('fPower').value = ''; }]);
+  if (state.brand !== null) pills.push(['Brand: ' + DATA.brands[state.brand], () => { state.brand = null; }]);
+  if (state.stateSel !== null) pills.push(['State: ' + DATA.states[state.stateSel], () => { state.stateSel = null; }]);
+  if (state.months.size !== DATA.months.length)
+    pills.push(['Months: ' + months.map(m => DATA.months[m]).join(', '),
+      () => { state.months = new Set(DATA.months.map((_, i) => i)); drawChips(); }]);
+
+  const row = document.getElementById('activeRow');
+  row.innerHTML = pills.length
+    ? `<span class="lbl">Filters</span>` + pills.map((p, i) =>
+        `<span class="pill">${p[0]}<button type="button" data-i="${i}" aria-label="Remove ${p[0]}">\u2715</button></span>`).join('')
+    : `<span class="lbl">No filters \u2014 showing all passenger cars</span>`;
+  row.querySelectorAll('button').forEach(b =>
+    b.addEventListener('click', () => { pills[+b.dataset.i][1](); render(); }));
+
+  document.getElementById('period').textContent =
+    months.length === DATA.months.length ? '1 Jan \u2013 17 Jun 2026'
+      : DATA.months[months[0]] + ' \u2013 ' + DATA.months[months[months.length - 1]] + ' 2026';
+}
+
+/* -------------------------------------------------------------- controls */
+const regionSel = document.getElementById('fRegion');
+DATA.regions.forEach(r => regionSel.add(new Option(r, r)));
+regionSel.addEventListener('change', e => { state.region = e.target.value; state.stateSel = null; render(); });
+document.getElementById('fPower').addEventListener('change', e => { state.power = e.target.value; render(); });
+
+function drawChips() {
+  document.getElementById('monthChips').innerHTML = DATA.months.map((m, i) =>
+    `<button class="chip" type="button" aria-pressed="${state.months.has(i)}" data-m="${i}">${m}</button>`).join('');
+  document.querySelectorAll('#monthChips .chip').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const i = +btn.dataset.m;
+      if (state.months.has(i)) { if (state.months.size > 1) state.months.delete(i); }
+      else state.months.add(i);
+      drawChips(); render();
+    });
+  });
+}
+drawChips();
+render();
+window.addEventListener('resize', () => Object.values(charts).forEach(c => c.resize()));
+</script>

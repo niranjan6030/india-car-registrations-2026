@@ -4,7 +4,7 @@ End-to-end analysis of **every new four-wheeler registered in India between 1 Ja
 
 **Source:** [Vahan 4 Dashboard](https://vahan.parivahan.gov.in/vahan4dashboard/), Ministry of Road Transport & Highways, Government of India (via the daily mirror [hrshlpnchl/Vahan_data](https://github.com/hrshlpnchl/Vahan_data)).
 
-[Cleaning log](reports/cleaning_log.md) · [Tableau workbook](tableau/India_Car_Registrations_2026.twbx)
+**[Open the interactive dashboard](https://claude.ai/artifact/A5J6KZdibKaMYC4x3LYys8)** · [Cleaning log](reports/cleaning_log.md) · [Tableau workbook](tableau/India_Car_Registrations_2026.twbx)
 
 ![Dashboard](figures/00_dashboard.png)
 
@@ -66,6 +66,16 @@ Full step-by-step log: [`reports/cleaning_log.md`](reports/cleaning_log.md)
 
 ---
 
+## Interactive dashboard
+
+[Open it here.](https://claude.ai/artifact/A5J6KZdibKaMYC4x3LYys8) Filter by region, powertrain and month, or click any brand or state to cross-filter every panel; the KPIs, charts and written insights all recalculate from the selection.
+
+Built as a single self-contained page: [`web/build_data.py`](web/build_data.py) packs the cleaned data into a 72 KB JSON bundle and [`web/build_page.py`](web/build_page.py) injects it into [`web/page_template.html`](web/page_template.html). Charts use ECharts; the categorical palette is validated for deutan, protan and tritan colour vision.
+
+```bash
+python3 web/build_data.py && python3 web/build_page.py   # -> web/dashboard.html
+```
+
 ## Tableau workbook
 
 10 worksheets and 2 dashboards ("Overview", "The EV Shift") over 5,686 rows of cleaned data.
@@ -93,6 +103,7 @@ data/clean/               star schema + flat file + Excel workbook
   dim_state               region, ISO code, map location
   dim_date                month, quarter, days covered
 figures/                  dashboard + chart scripts and rendered PNGs
+web/                      interactive dashboard: data packer, template, built page
 tableau/                  workbook generator, extract builder, .twbx, build guide
 powerbi/                  DAX measures, custom theme, build guide
 reports/cleaning_log.md   what was cleaned, and how much
