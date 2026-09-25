@@ -6,6 +6,8 @@ End-to-end analysis of **every new four-wheeler registered in India between 1 Ja
 
 [Cleaning log](reports/cleaning_log.md) · [Tableau workbook](tableau/India_Car_Registrations_2026.twbx)
 
+![Dashboard](figures/00_dashboard.png)
+
 ---
 
 ## Headline findings
@@ -90,7 +92,7 @@ data/clean/               star schema + flat file + Excel workbook
   dim_maker               brand, parent group, origin country, segment
   dim_state               region, ISO code, map location
   dim_date                month, quarter, days covered
-figures/                  chart scripts and rendered PNGs
+figures/                  dashboard + chart scripts and rendered PNGs
 tableau/                  workbook generator, extract builder, .twbx, build guide
 powerbi/                  DAX measures, custom theme, build guide
 reports/cleaning_log.md   what was cleaned, and how much
