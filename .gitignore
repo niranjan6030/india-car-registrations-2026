@@ -9,3 +9,4 @@ figures/make_linkedin_pdf.py
 figures/bare_*.png
 hyperd.log
 screenshots/
+linkedin_images/
