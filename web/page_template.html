@@ -171,7 +171,7 @@
       <div class="chart" id="cEvShare"></div>
     </section>
 
-    <section class="panel">
+    <section class="panel tall">
       <h2>Registrations by region</h2>
       <p class="note">Share of the selected registrations</p>
       <div class="chart" id="cRegion"></div>
@@ -201,7 +201,7 @@
       <div class="chart" id="cOrigin"></div>
     </section>
 
-    <section class="panel">
+    <section class="panel tall">
       <h2>What the raw 4W data holds</h2>
       <p class="note">Before cleaning &mdash; unaffected by the filters above</p>
       <div class="chart" id="cSegments"></div>
@@ -414,10 +414,11 @@ function render() {
     ...base,
     tooltip: { ...base.tooltip, trigger: 'item',
                formatter: p => `${p.name}<br><b>${F.format(p.value)}</b> \u00B7 ${p.percent}%` },
-    legend: { orient: 'vertical', right: 4, top: 'center', itemWidth: 9, itemHeight: 9,
+    legend: { orient: 'horizontal', bottom: 0, left: 'center', itemWidth: 9, itemHeight: 9,
+              itemGap: 14, padding: [6, 0, 0, 0],
               textStyle: { color: INK2, fontSize: 11.5 }, icon: 'roundRect' },
     series: [{
-      type: 'pie', radius: ['58%', '84%'], center: ['32%', '50%'], avoidLabelOverlap: true,
+      type: 'pie', radius: ['50%', '72%'], center: ['50%', '40%'], avoidLabelOverlap: true,
       itemStyle: { borderColor: C('--surface'), borderWidth: 2, borderRadius: 3 },
       label: { show: false }, labelLine: { show: false },
       data: regionAgg.map((r, i) => ({ name: r[0], value: r[1], itemStyle: { color: CAT[i % CAT.length] } }))
@@ -456,10 +457,12 @@ function render() {
     ...base,
     tooltip: { ...base.tooltip, trigger: 'item',
                formatter: p => `${p.name}<br><b>${F.format(p.value)}</b> \u00B7 ${p.percent}%` },
-    legend: { orient: 'vertical', right: 4, top: 'center', itemWidth: 9, itemHeight: 9,
-              textStyle: { color: INK2, fontSize: 11.5 }, icon: 'roundRect' },
+    legend: { orient: 'horizontal', bottom: 0, left: 'center', itemWidth: 9, itemHeight: 9,
+              itemGap: 12, padding: [6, 0, 0, 0],
+              textStyle: { color: INK2, fontSize: 11 }, icon: 'roundRect',
+              formatter: n => n.length > 22 ? n.slice(0, 21) + '\u2026' : n },
     series: [{
-      type: 'pie', radius: ['58%', '84%'], center: ['30%', '50%'],
+      type: 'pie', radius: ['50%', '72%'], center: ['50%', '38%'],
       itemStyle: { borderColor: C('--surface'), borderWidth: 2, borderRadius: 3 },
       label: { show: false }, labelLine: { show: false },
       data: [{ name: 'Passenger cars', value: carSeg, itemStyle: { color: ACCENT } },
